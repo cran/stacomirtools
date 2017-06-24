@@ -1,14 +1,5 @@
-# Nom fichier :        ConnectionODBC (classe)
-# Organisme :          IAV
-# Auteur :             Cedric Briand
-# Contact :            cedric.briand"at"eptb-vilaine.fr
-# Date de creation :   06/02/2007 10:58:37
-# Etat :               OK
-# Description          Classe de connexion a la base de donnee
-#**********************************************************************
 
-#validation function
-validite_ODBC=function(object)
+validity_ODBC=function(object)
 {
 	rep1= class(object@baseODBC[1])=="Character"
 	rep2=class(object@baseODBC[2])=="Character"
@@ -28,32 +19,40 @@ validite_ODBC=function(object)
 #' @slot query="data.frame"
 #' @return connectionODBC an S4 object of class connectionODBC
 #' @examples 
+#' ##this wont be run as the user need to manually configure the connection before using it
+#' \dontrun{
 #' object=new("ConnectionODBC")
 #' object@baseODBC=c("myODBCconnection","myusername","mypassword")
 #' object@silent=FALSE
 #' object<-connect(object)
 #' odbcClose(object@connection)
+#' }
 setClass(Class="ConnectionODBC",
 		representation= representation(baseODBC="vector",silent="logical",etat="ANY",connection="ANY"),
 		prototype = list(silent=TRUE),
-		validity=validite_ODBC)
+		validity=validity_ODBC)
+    
+#' generic connect function for baseODBC
+#' @export   
 setGeneric("connect",def=function(object,...) standardGeneric("connect"))
 
 #' connect method for ConnectionODBC class
 #' @return a connection with slot filled
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @examples object=new("ConnectionODBC")
+#' @examples 
+#' object=new("ConnectionODBC")
+#' 
 #' object@baseODBC=baseODBC
 #' connect(object)
 setMethod("connect",signature=signature("ConnectionODBC"),definition=function(object) {     
 			if (length(object@baseODBC)!=3)  {
-				if (exists("baseODBC",envir=.GlobalEnv)){ 
-					object@baseODBC<-get("baseODBC",envir=.GlobalEnv) 
+				if (exists("baseODBC",envir=envir_stacomi)){ 
+					object@baseODBC<-get("baseODBC",envir=envir_stacomi) 
 				} else {
 					if(exists("envir_stacomi")){# the program is called within stacomiR
-						funout(get("msg",envir_stacomi)$ConnectionODBC.1,arret=TRUE)
+						funout(gettext("You need to define a baseODBC vector with the 'ODBC' link, the user and the password\n"),arret=TRUE)
 					} else	  {
-						stop("you need to define a vector baseODBC with the ODBC link, user and password")
+						stop("you need to define a vector baseODBC with the 'ODBC' link, user and password")
 					}
 				}
 			}
@@ -79,7 +78,7 @@ setMethod("connect",signature=signature("ConnectionODBC"),definition=function(ob
 			# sends the result of a trycatch connection in the
 			#l'object (current connection), e.g. a character vector
 			connection_error<-if(exists("envir_stacomi")){
-						error=paste(get("msg",envir_stacomi)$ConnectionODBC.4,object@baseODBC[1])
+						error=paste(gettext("Connection failed :\n",object@baseODBC[1]))
 					} else {
 						error="impossible connection"
 					}
@@ -87,16 +86,16 @@ setMethod("connect",signature=signature("ConnectionODBC"),definition=function(ob
 			if (class(currentConnection)=="RODBC") {
 				if (!object@silent){
 					if(exists("envir_stacomi")){
-						print(get("msg",envir_stacomi)$ConnectionODBC.5)
+						print(gettext("Connection successful"))
 					} else {
 						print("connection successful")
 					}
 				} 
 				object@connection=currentConnection  # an object S3 RODBC
 				if(exists("envir_stacomi")){
-					state<-get("msg",envir_stacomi)$ConnectionODBC.6
+					state<-"Connection in progress"
 				} else {
-					state<-"connected"
+					state<-"Connection in progress"
 				}
 				object@etat=state
 			} else {
