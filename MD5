@@ -1,11 +1,13 @@
-ea3c0afc5cd8d100b384a2dfbfd1429e *DESCRIPTION
+fa9df54055b2032d5a971bceac2e57b2 *DESCRIPTION
 46ca8b5c60e7b343526f863e3383a495 *NAMESPACE
-1e64cef29db26719a7ed8e15767ba2e8 *R/ConnectionODBC.r
-c8edeabb9b25dc48d400fca58f69e222 *R/RequeteODBC.r
+0256217bf4c49dd564d5b6e1fbefc069 *R/ConnectionODBC.r
+b5f23b148a184a2aa880b05504894fb9 *R/RequeteODBC.r
 329e3f8f59007636c561dfcf7848d975 *R/RequeteODBCwhere.r
 dfaa6ccffc92532b4b0abfd20841f157 *R/RequeteODBCwheredate.r
+c37a5d05f585a69125223776367fcefa *R/stacomirtools-package.R
 b0bfb4ceec374210f2e95e49f20a909f *R/stacomirtools.r
-e18e1cd626ec1544f4efa7d6b8175de6 *R/utilities.r
+e84ff24010ffb874615a6f5f141c06c2 *R/utilities.r
+d474e5cee5a54769491b2c79b282dc37 *inst/config/test.R
 72c7e0ad2273b92f1f77219f247cdb4e *man/ConnectionODBC-class.Rd
 4dda593b1756df9096a70354ca29b1cc *man/RequeteODBC-class.Rd
 b5c8b7c5118da048ae0d185a819749e6 *man/RequeteODBCwhere-class.Rd
@@ -19,5 +21,7 @@ b64d126bd9449f49a14ac6acf113551e *man/induk.Rd
 6ec40b12eaa972ff9830c1c0c1ed797a *man/is.even.Rd
 d0fbab358dadbdd86164da1c48e6fce3 *man/is.odd.Rd
 3bd4ede162d0166b0d21f038c208a106 *man/killfactor.Rd
-5eca7c8ef827bf560e00f7da2ecd7226 *man/stacomirtools-package.Rd
+82addf039bd07a44158f3baeea1c5686 *man/stacomirtools-package.Rd
 a5e423b286a06371030fce688e31741e *man/tab2df.Rd
+2519d39193a51edcb94b81fdee35fe43 *tests/testthat.R
+364d22588a8444e139d0c99e4f2f6487 *tests/testthat/test-00.R
